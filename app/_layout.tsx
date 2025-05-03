@@ -1,3 +1,5 @@
+import AuthContextProvider from "@/context/AuthContext";
+import DataContextProvider from "@/context/DataContext";
 import "@/global.css";
 import { store } from "@/store";
 import { useFonts } from "expo-font";
@@ -28,11 +30,16 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <AuthContextProvider>
+        <DataContextProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="news" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </DataContextProvider>
+      </AuthContextProvider>
     </Provider>
   );
 }
